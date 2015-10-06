@@ -21,3 +21,7 @@
         </td>
     </tr>
 </table>
+
+<div align="center">
+    <iframe width="400" height="400" frameborder="0" src="http://kartina.tv/epg"></iframe>
+</div>
