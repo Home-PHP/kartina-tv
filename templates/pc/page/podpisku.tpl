@@ -24,7 +24,7 @@
 
 <?php
 
-    # https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5
+    # https://api.privatbank.ua/api-info/exchangerate.html >> https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5
     # [{"ccy":"RUR","base_ccy":"UAH","buy":"0.33500","sale":"0.35500"},{"ccy":"EUR","base_ccy":"UAH","buy":"24.50000","sale":"25.50000"},{"ccy":"USD","base_ccy":"UAH","buy":"22.10000","sale":"22.70000"}]
 
 ?>
