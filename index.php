@@ -78,8 +78,9 @@ switch($get_url){ //switch($_GET['url']){
     case 'podpisku':    // страница Стоимость подписки
     case 'how':         // страница Как смотреть
     case 'payments':    // страница Способы оплаты
-    
-        $params['page_url'] = $_GET['url'];
+    case 'channellist': // страница Список каналов
+
+$params['page_url'] = $_GET['url'];
         $smarty->display($device.DS.'index.tpl',$params);
     break;     
     
