@@ -48,6 +48,23 @@ $device = 'pc'; // Значение по умолчанию
 $params['device'] = $device;
 $params['page_url'] = 'home'; // значение для главной страницы
 $params['thanks'] = false;
+/** Параметры #2 которые передаются в шаблон **/
+/*
+ * https://api.privatbank.ua/api-info/exchangerate.html >> https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5
+ * ************************************************************************************************************************
+ * ccy ........ Код валюты
+ * base_ccy ... Код национальной валюты
+ * buy ........ Курс покупки
+ * sale ....... Курс продажи
+ *
+ * http://stackoverflow.com/questions/15617512/get-json-object-from-url
+ * http://php-da.ru/osnovy-php/php-chisla-number.html
+ */
+$json = file_get_contents("https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5");
+$obj = json_decode($json);
+$EUR = $obj[1];
+$params['podpisku_month'] = number_format($EUR->sale * 19.95); // number_format($EUR->sale * 19.95, 2) // round($EUR->sale * 19.95, 2) // для месячного абонемента умножаем курс евро (тот что побольше) на 19,95   (540)
+$params['podpisku_year'] =  number_format($EUR->sale * 190);   // number_format($EUR->sale * 190, 2)   //round($EUR->sale * 190, 2)   // для годового абонемента умножаем курс евро (тот что побольше) на 190      (5100)
 
 
 switch($_GET['url']){
@@ -71,6 +88,7 @@ switch($_GET['url']){
     case 'podpisku':    // страница Стоимость подписки
     case 'how':         // страница Как смотреть
     case 'payments':    // страница Способы оплаты
+    case 'channellist': // страница Список каналов
     
     
         $params['page_url'] = $_GET['url'];

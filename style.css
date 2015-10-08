@@ -15,7 +15,7 @@ h2{font-size:24px;color:#fff; text-align:center;font-weight: normal;height: 35px
 h3{font-size:30px; color:#311779;text-align:center;}
 .clear{clear:both;}
 
-.content{width:930px; margin:0 auto; position: relative;}
+.content{width:950px; margin:0 auto; position: relative;}
 .logo{width:120px; height:120px; background-image:url('images/logo.png');float: left; margin: 20px 0 0 0;background-size: cover;cursor: pointer;}
 .contact{float:right; margin:40px 0 0 0; display:block;text-align: right;}
 .tel{font-size:25px;margin-bottom: 0;}
@@ -296,8 +296,31 @@ div.block_foto div.foto_text {
 #top_menu a:hover {
     background-color: #fff; 
     color: #ff8800; 
-} 
+}
 
 
 
+div.channellist {
+    margin-left: -25px;
+}
 
+#top_menu a.active {
+    background-color: #fff;
+    color: #ff8800;
+}
+
+a.mail2{color: #000000;}
+a.mail2:hover{color: #0000ff;}
+
+.d2-fix {
+     height: auto;
+     padding: 25px 25px 15px 25px;
+     min-height: 600px
+ }
+.d2-fix-channellist {
+    height: auto;
+    padding: 25px 25px 0;
+    min-height: 600px;
+    margin-left: -40px;
+    width: 982px;
+}

@@ -6,7 +6,7 @@
                     <p><strong>MTS</strong>      050 130 86 81</p>
                     <p><strong>Kyivstar</strong> 098 151 30 51</p>
                     <p><strong>Skype</strong>   MediaPlayer.com.ua</p>
-                    <p><strong>E-mail</strong> mediaplayer.com.ua@gmail.com</p>                    
+                    <p><strong>E-mail</strong> <a href="mailto:mediaplayer.com.ua@gmail.com">mediaplayer.com.ua@gmail.com</a></p>
                 </td>
                 <td>
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2542.002502892445!2d30.593211999999998!3d50.422425!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40d4c57f525d99f7%3A0xe32af3bc1cd6b63e!2z0JTQvdGW0L_RgNC-0LLRgdGM0LrQsCDQvdCw0LEuLCAxMywg0JrQuNGX0LI!5e0!3m2!1suk!2sua!4v1442182744379" width="550" height="450" frameborder="0" style="border:0"></iframe>                         

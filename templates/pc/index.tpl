@@ -37,7 +37,7 @@
 
     
     </div>
-    <div class="d2" style="height: auto; padding: 25px 25px 15px 25px; min-height: 600px">
+    <div class="d2 {if $page_url == "channellist"}d2-fix-channellist{else}d2-fix{/if}">
         <div class="plan_webinar">
         <!-- Начало текста -->
         {include file="{$device}/page/{$page_url}.tpl"}
