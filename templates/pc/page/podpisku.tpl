@@ -6,8 +6,10 @@
         </td>
         <td>
             <p>
-                Годовая подписка Kartina.TV (Оплата за год вперёд). Подписка на пакет FullHD каналов Kartina.TV сроком на 1 год, {$podpisku_year} грн.
-            </p>
+                Годовая подписка Kartina.TV (Оплата за год вперёд). Подписка на пакет FullHD каналов Kartina.TV сроком на 1 год
+            <p><strong>
+                    <b>{$podpisku_year} грн.</b>
+            </p></strong>
         </td>
     </tr>
     <tr>
@@ -16,8 +18,11 @@
         </td>
         <td>
             <p>
-                Месячная подписка Kartina.TV Подписка на пакет FullHD каналов Kartina.TV сроком на 1 месяц, {$podpisku_month} грн.
+                Месячная подписка Kartina.TV Подписка на пакет FullHD каналов Kartina.TV сроком на 1 месяц
             </p>
+           <p><strong>
+                   <b>{$podpisku_month} грн.</b>
+            </p></strong>
         </td>
     </tr>
 </table>
