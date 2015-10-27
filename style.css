@@ -140,6 +140,14 @@ margin: 0 auto;}
     color: #fff;
     font-size: 22px;
 }
+.anketa input.submit:hover {
+    background-color: #ffd7bf;
+    color: #f76d1a;
+}
+.anketa input.submit:active {
+    background-color: #fff;
+    color: #f76d1a;
+}
 
 .d2 {
     border-radius: 5px 5px 0 0;
