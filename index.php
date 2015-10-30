@@ -89,6 +89,7 @@ switch($_GET['url']){
     case 'how':         // страница Как смотреть
     case 'payments':    // страница Способы оплаты
     case 'channellist': // страница Список каналов
+    case 'admin':       // страница Загрузить документ
     
     
         $params['page_url'] = $_GET['url'];

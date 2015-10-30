@@ -10,9 +10,9 @@ function registration_on_forum($first_name, $last_name, $email, $phone, $source)
     $post['source'] = $source;
     
     $post_json = json_encode($post);
-    raport_in_files($post_json);
+    // raport_in_files($post_json);
     send_mail_admin($post_json);
-    send_mail_client($email);
+   // send_mail_client($email);
 }
 
 

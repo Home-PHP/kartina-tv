@@ -1,4 +1,3 @@
-<h3>как смотреть?</h3>
 <div align="center">
     <img width="650" height="382" border="0" usemap="#Map" src="/images/online_v3.png">
     <map id="Map" name="Map">
