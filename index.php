@@ -8,8 +8,8 @@ if (!defined('DS')) {
 define('SOURCE', '20140929_forum');
 
 /** Настройки почты **/
-define('MAILUSER', 'info@aviaforum.kiev.ua');
-define('MAILLOGIN', 'info@aviaforum.kiev.ua');
+define('MAILUSER', 'noreply@kartina-tv.mediaplayer.com.ua');
+define('MAILLOGIN', 'noreply@kartina-tv.mediaplayer.com.ua');
 define('MAILPWD', '12131415');
 define('MAILHOST', '193.93.185.184');
 define('MAILPORT', 25);
@@ -89,7 +89,6 @@ switch($_GET['url']){
     case 'how':         // страница Как смотреть
     case 'payments':    // страница Способы оплаты
     case 'channellist': // страница Список каналов
-    case 'admin':       // страница Загрузить документ
     
     
         $params['page_url'] = $_GET['url'];

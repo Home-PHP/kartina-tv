@@ -1,0 +1,17 @@
+Здраствуйте!
+<br/>Вы оставляли заявку на сайте <a href="http://kartina-tv.mediaplayer.com.ua/">kartina-tv.mediaplayer.com.ua</a> на получения <u>бесплатного 3х дневного доступа</u> к видео-сервису.
+<br/><br/>Ваш доступ:
+<table border="1" cellpadding="10" cellspacing="0" >
+<tr><td>логин</td><td><i>__LOGIN__</i></td></tr>
+<tr><td>пароль</td><td><i>__PASSWORD__</i></td></tr>
+</table>
+<br/>доступ нужно активировать <b>до __DATATIME__</b>
+<br/>Детальная информация о видео-сервисе: как смотреть <a href="http://kartina.tv/shop_content.php/coID/1200">kartina.tv/shop_content.php/coID/1200</a>
+<br/>Если данный видео-сервис Вам понравился и Вы захотите оформить месячный или годовой доступ, обращайтесь по телефонам указанным ниже
+<br/><br/>    --
+<br/><i>С Уважением,
+<br/>Владимир
+<br/><br/>официальный диллер видео-сервиса <a href="http://kartina-tv.mediaplayer.com.ua/">Kartina.TV</a> в Украине
+<br/>моб.тел. <b>+380(98) 151-30-51</b>
+<br/>         <b>+38(050) 130 86 81</b>
+<br/>оф.тел   <b>(044) 209 96 35</b></i></b>

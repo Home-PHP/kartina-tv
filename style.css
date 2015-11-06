@@ -52,7 +52,7 @@ margin-bottom: 20px;}
 
 		
 label {color: #fff;float: left;text-align: right;margin-left: 15px;}	
-input[type="text"],input[type="time"],input[type="email"],input[type="tel"], textarea{width: 145px;padding: 8px 12px;margin-left: 15px;
+input[type="text"],input[type="time"],input[type="email"],input[type="tel"],input[type="password"], textarea{width: 145px;padding: 8px 12px;margin-left: 15px;
 		border: none;
 		background: #fff;
 		border-radius: 3px;
