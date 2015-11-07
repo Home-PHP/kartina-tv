@@ -68,24 +68,24 @@
 		 *  Set properties
 		 */
 		//echo date('H:i:s') . " Set properties<br />";
-		$objPHPExcel_2->getProperties()->setCreator("Runnable.com");
-		$objPHPExcel_2->getProperties()->setLastModifiedBy("Runnable.com");
-		$objPHPExcel_2->getProperties()->setTitle("Office 2007 XLSX Test Document");
-		$objPHPExcel_2->getProperties()->setSubject("Office 2007 XLSX Test Document");
-		$objPHPExcel_2->getProperties()->setDescription("Test document for Office 2007 XLSX, generated using PHP classes.");
-		/*
-		 * Add some data
-		 */
-		//echo date('H:i:s') . " Add some data<br />";
-		$objPHPExcel_2->setActiveSheetIndex(0);
-		$objPHPExcel_2->getActiveSheet()->SetCellValue('A1', '№');
-		$objPHPExcel_2->getActiveSheet()->SetCellValue('B1', 'логин');
-		$objPHPExcel_2->getActiveSheet()->SetCellValue('C1', 'пароль');
-		$objPHPExcel_2->getActiveSheet()->SetCellValue('D1', 'дата активации');
-		$objPHPExcel_2->getActiveSheet()->SetCellValue('E1', 'name');
-		$objPHPExcel_2->getActiveSheet()->SetCellValue('F1', 'email');
-		$objPHPExcel_2->getActiveSheet()->SetCellValue('G1', 'phone');
-		$objPHPExcel_2->getActiveSheet()->SetCellValue('H1', 'DataTime');
+        $objPHPExcel_2->getProperties()->setCreator("kartina-tv.mediaplayer.com.ua");
+        $objPHPExcel_2->getProperties()->setLastModifiedBy("kartina-tv.mediaplayer.com.ua");
+        $objPHPExcel_2->getProperties()->setTitle("Office 2007 XLSX Registration Document");
+        $objPHPExcel_2->getProperties()->setSubject("Office 2007 XLSX Registration Document");
+        $objPHPExcel_2->getProperties()->setDescription("Registration document for Office 2007 XLSX, generated using PHP classes.");
+        /*
+         * Add some data
+         */
+        //echo date('H:i:s') . " Add some data<br />";
+        $objPHPExcel_2->setActiveSheetIndex(0);
+        $objPHPExcel_2->getActiveSheet()->SetCellValue('A1', '№');
+        $objPHPExcel_2->getActiveSheet()->SetCellValue('B1', 'Логин');
+        $objPHPExcel_2->getActiveSheet()->SetCellValue('C1', 'Пароль');
+        $objPHPExcel_2->getActiveSheet()->SetCellValue('D1', 'Дата активации');
+        $objPHPExcel_2->getActiveSheet()->SetCellValue('E1', 'Имя/Фамилия');
+        $objPHPExcel_2->getActiveSheet()->SetCellValue('F1', 'E-mail');
+        $objPHPExcel_2->getActiveSheet()->SetCellValue('G1', 'Телефон');
+        $objPHPExcel_2->getActiveSheet()->SetCellValue('H1', 'DateTime');
 		for( $row = 1; $row <= (count($_KARTINA_TV)-1); $row++ ){
 			$_row = $row + 1;
 			$objPHPExcel_2->getActiveSheet()->SetCellValue("A$_row", $_KARTINA_TV[$row][0]);
@@ -131,24 +131,24 @@
 		 * Set properties
 		 */
 		//echo date('H:i:s') . " Set properties<br />";
-		$objPHPExcel_2->getProperties()->setCreator("Runnable.com");
-		$objPHPExcel_2->getProperties()->setLastModifiedBy("Runnable.com");
-		$objPHPExcel_2->getProperties()->setTitle("Office 2007 XLSX Test Document");
-		$objPHPExcel_2->getProperties()->setSubject("Office 2007 XLSX Test Document");
-		$objPHPExcel_2->getProperties()->setDescription("Test document for Office 2007 XLSX, generated using PHP classes.");
-		/*
-		 * Add some data
-		 */
-		//echo date('H:i:s') . " Add some data<br />";
-		$objPHPExcel_2->setActiveSheetIndex(0);
-		$objPHPExcel_2->getActiveSheet()->SetCellValue('A1', '№');
-		$objPHPExcel_2->getActiveSheet()->SetCellValue('B1', 'логин');
-		$objPHPExcel_2->getActiveSheet()->SetCellValue('C1', 'пароль');
-		$objPHPExcel_2->getActiveSheet()->SetCellValue('D1', 'дата активации');
-		$objPHPExcel_2->getActiveSheet()->SetCellValue('E1', 'name');
-		$objPHPExcel_2->getActiveSheet()->SetCellValue('F1', 'email');
-		$objPHPExcel_2->getActiveSheet()->SetCellValue('G1', 'phone');
-		$objPHPExcel_2->getActiveSheet()->SetCellValue('H1', 'DataTime');
+        $objPHPExcel_2->getProperties()->setCreator("kartina-tv.mediaplayer.com.ua");
+        $objPHPExcel_2->getProperties()->setLastModifiedBy("kartina-tv.mediaplayer.com.ua");
+        $objPHPExcel_2->getProperties()->setTitle("Office 2007 XLSX Registration Document");
+        $objPHPExcel_2->getProperties()->setSubject("Office 2007 XLSX Registration Document");
+        $objPHPExcel_2->getProperties()->setDescription("Registration document for Office 2007 XLSX, generated using PHP classes.");
+        /*
+         * Add some data
+         */
+        //echo date('H:i:s') . " Add some data<br />";
+        $objPHPExcel_2->setActiveSheetIndex(0);
+        $objPHPExcel_2->getActiveSheet()->SetCellValue('A1', '№');
+        $objPHPExcel_2->getActiveSheet()->SetCellValue('B1', 'Логин');
+        $objPHPExcel_2->getActiveSheet()->SetCellValue('C1', 'Пароль');
+        $objPHPExcel_2->getActiveSheet()->SetCellValue('D1', 'Дата активации');
+        $objPHPExcel_2->getActiveSheet()->SetCellValue('E1', 'Имя/Фамилия');
+        $objPHPExcel_2->getActiveSheet()->SetCellValue('F1', 'E-mail');
+        $objPHPExcel_2->getActiveSheet()->SetCellValue('G1', 'Телефон');
+        $objPHPExcel_2->getActiveSheet()->SetCellValue('H1', 'DateTime');
 		for( $row = 1; $row <= (count($_KARTINA_TV)-1); $row++ ){
 			$_row = $row + 1;
 			$objPHPExcel_2->getActiveSheet()->SetCellValue("A$_row", $_KARTINA_TV[$row][0]);
@@ -191,5 +191,76 @@
 		$objWriter = new PHPExcel_Writer_Excel2007($objPHPExcel_2);
 		$objWriter->save($inputFileName);
 	}
+
+    function addFailRegistration($inputFileName, $_KARTINA_TV, $_add_name, $_add_email, $_add_phone, $_add_datatime){
+        /*
+         * Create new PHPExcel object
+         */
+        //echo date('H:i:s') . " Create new PHPExcel object<br />";
+        $objPHPExcel_2 = new PHPExcel();
+        /*
+         * Set properties
+         */
+        //echo date('H:i:s') . " Set properties<br />";
+        $objPHPExcel_2->getProperties()->setCreator("kartina-tv.mediaplayer.com.ua");
+        $objPHPExcel_2->getProperties()->setLastModifiedBy("kartina-tv.mediaplayer.com.ua");
+        $objPHPExcel_2->getProperties()->setTitle("Office 2007 XLSX Registration Document");
+        $objPHPExcel_2->getProperties()->setSubject("Office 2007 XLSX Registration Document");
+        $objPHPExcel_2->getProperties()->setDescription("Registration document for Office 2007 XLSX, generated using PHP classes.");
+        /*
+         * Add some data
+         */
+        //echo date('H:i:s') . " Add some data<br />";
+        $objPHPExcel_2->setActiveSheetIndex(0);
+        $objPHPExcel_2->getActiveSheet()->SetCellValue('A1', '№');
+        $objPHPExcel_2->getActiveSheet()->SetCellValue('B1', 'Логин');
+        $objPHPExcel_2->getActiveSheet()->SetCellValue('C1', 'Пароль');
+        $objPHPExcel_2->getActiveSheet()->SetCellValue('D1', 'Дата активации');
+        $objPHPExcel_2->getActiveSheet()->SetCellValue('E1', 'Имя/Фамилия');
+        $objPHPExcel_2->getActiveSheet()->SetCellValue('F1', 'E-mail');
+        $objPHPExcel_2->getActiveSheet()->SetCellValue('G1', 'Телефон');
+        $objPHPExcel_2->getActiveSheet()->SetCellValue('H1', 'DateTime');
+        for( $row = 1; $row <= (count($_KARTINA_TV)-1); $row++ ){
+            $_row = $row + 1;
+            $objPHPExcel_2->getActiveSheet()->SetCellValue("A$_row", $_KARTINA_TV[$row][0]);
+            $objPHPExcel_2->getActiveSheet()->SetCellValue("B$_row", $_KARTINA_TV[$row][1]);
+            $objPHPExcel_2->getActiveSheet()->SetCellValue("C$_row", $_KARTINA_TV[$row][2]);
+            $objPHPExcel_2->getActiveSheet()->SetCellValue("D$_row", $_KARTINA_TV[$row][3]);
+            $objPHPExcel_2->getActiveSheet()->SetCellValue("E$_row", $_KARTINA_TV[$row][4]);
+            $objPHPExcel_2->getActiveSheet()->SetCellValue("F$_row", $_KARTINA_TV[$row][5]);
+            $objPHPExcel_2->getActiveSheet()->SetCellValue("G$_row", $_KARTINA_TV[$row][6]);
+            $objPHPExcel_2->getActiveSheet()->SetCellValue("H$_row", $_KARTINA_TV[$row][7]);
+        }
+        $_row = $row + 1;
+        $objPHPExcel_2->getActiveSheet()->SetCellValue("A$_row", $row);
+        $objPHPExcel_2->getActiveSheet()->SetCellValue("B$_row", '--------');
+        $objPHPExcel_2->getActiveSheet()->SetCellValue("C$_row", '------');
+        $objPHPExcel_2->getActiveSheet()->SetCellValue("D$_row", '');
+        $objPHPExcel_2->getActiveSheet()->SetCellValue("E$_row", $_add_name);
+        $objPHPExcel_2->getActiveSheet()->SetCellValue("F$_row", $_add_email);
+        $objPHPExcel_2->getActiveSheet()->SetCellValue("G$_row", $_add_phone);
+        $objPHPExcel_2->getActiveSheet()->SetCellValue("H$_row", $_add_datatime);
+        $_row = $_row + 1;
+        $objPHPExcel_2->getActiveSheet()->SetCellValue("A$_row", '');
+        $objPHPExcel_2->getActiveSheet()->SetCellValue("B$_row", '');
+        $objPHPExcel_2->getActiveSheet()->SetCellValue("C$_row", '');
+        $objPHPExcel_2->getActiveSheet()->SetCellValue("D$_row", '');
+        $objPHPExcel_2->getActiveSheet()->SetCellValue("E$_row", '');
+        $objPHPExcel_2->getActiveSheet()->SetCellValue("F$_row", '');
+        $objPHPExcel_2->getActiveSheet()->SetCellValue("G$_row", '');
+        $objPHPExcel_2->getActiveSheet()->SetCellValue("H$_row", '');
+        /*
+         *  Rename sheet
+         */
+        //echo date('H:i:s') . " Rename sheet<br />";
+        $objPHPExcel_2->getActiveSheet()->setTitle('Mailing');
+        /*
+         *  Save Excel 2007 file
+         *  These lines are commented just for this demo purposes This is how the excel file is written to the disk, but in this case we don't need them since the file was written at the first run
+         */
+        //echo date('H:i:s') . " Write to Excel2007 format<br />";
+        $objWriter = new PHPExcel_Writer_Excel2007($objPHPExcel_2);
+        $objWriter->save($inputFileName);
+    }
 
 ?>

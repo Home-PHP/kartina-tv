@@ -126,17 +126,25 @@ function smart_send_mail($post_json, $email, $first_name, $last_name, $phone){
 			if( filter_var($val[0], FILTER_VALIDATE_INT) !== false ) break;
 		}
 	}
-	
-	if(filter_var($available_new_record[0], FILTER_VALIDATE_INT) !== false){
-    raport_in_files($post_json);
-    send_mail_admin($post_json);
-		send_mail_client($email,$available_new_record[1],$available_new_record[2],$available_new_record[3]);
-		editRegistration("$_work/$_xlsx_file_name.$_input_file_type",$_KARTINA_TV,$available_new_record[0],$available_new_record[1],$available_new_record[2],$available_new_record[3],$first_name.' '.$last_name,$email,$phone,date("d.m.Y"));
-	} else { 
-    raport_in_files($post_json);
-    send_mail_fail_admin($post_json);
-		addRegistration("$_work/$_xlsx_file_name.$_input_file_type",$_KARTINA_TV,$first_name.' '.$last_name,$email,$phone,date("d.m.Y"));
-	}
+
+    $_search_name  = 0; foreach($_KARTINA_TV as $col=>$val) if($val[4] == $first_name.' '.$last_name) $_search_name++;
+    $_search_email = 0; foreach($_KARTINA_TV as $col=>$val) if($val[5] == $email) $_search_email++;
+    $_search_phone = 0; foreach($_KARTINA_TV as $col=>$val) if($val[6] == $phone) $_search_phone++;
+    $_search       = $_search_name + $_search_email + $_search_phone;
+    if(0 == $_search){
+        if(filter_var($available_new_record[0], FILTER_VALIDATE_INT) !== false){
+            raport_in_files($post_json);
+            send_mail_admin($post_json);
+            send_mail_client($email,$available_new_record[1],$available_new_record[2],$available_new_record[3]);
+            editRegistration("$_work/$_xlsx_file_name.$_input_file_type",$_KARTINA_TV,$available_new_record[0],$available_new_record[1],$available_new_record[2],$available_new_record[3],$first_name.' '.$last_name,$email,$phone,date("d.m.Y"));
+        } else {
+            raport_in_files($post_json);
+            send_mail_fail_admin($post_json);
+            addRegistration("$_work/$_xlsx_file_name.$_input_file_type",$_KARTINA_TV,$first_name.' '.$last_name,$email,$phone,date("d.m.Y"));
+        }
+    } else {
+        addFailRegistration("$_work/$_xlsx_file_name.$_input_file_type",$_KARTINA_TV,$first_name.' '.$last_name,$email,$phone,date("d.m.Y"));
+    }
 }
 
 function raport_in_files($post){

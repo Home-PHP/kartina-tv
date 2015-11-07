@@ -34,7 +34,9 @@
 	if($_POST["add-email"]){ $_add_email = $_POST["add-email"]; }else{ $_add_email = null; }
 	if($_POST["add-phone"]){ $_add_phone = $_POST["add-phone"]; }else{ $_add_phone = null; }
 	if($_POST["add-datatime"]){ $_add_datatime = $_POST["add-datatime"]; }else{ $_add_datatime = null; }
-	if($_POST["receiver-email"]){ $_receiver_email = $_POST["receiver-email"]; }else{ $_receiver_email = null; }
+    if($_POST["receiver-name"]){ $_receiver_name = $_POST["receiver-name"]; }else{ $_receiver_name = null; }
+    if($_POST["receiver-email"]){ $_receiver_email = $_POST["receiver-email"]; }else{ $_receiver_email = null; }
+    if($_POST["receiver-phone"]){ $_receiver_phone = $_POST["receiver-phone"]; }else{ $_receiver_phone = null; }
 	if($_POST["edit-email-text"]){ $_edit_email_text = $_POST["edit-email-text"]; }else{ $_edit_email_text = null; }
 /* 	echo "      delete-id: " . $_delete_id;
 	echo "<br />        edit-id: " . $_edit_id;
@@ -53,13 +55,15 @@
 	echo "<br />      add-email: " . $_add_email;
 	echo "<br />      add-phone: " . $_add_phone;
 	echo "<br />   add-datatime: " . $_add_datatime;
+    echo "<br />   receiver-name: " . $_receiver_name;
 	echo "<br />   receiver-email: " . $_receiver_email;
+    echo "<br />   receiver-phone: " . $_receiver_phone;
 	echo "<br />   edit-email-text: " . $_edit_email_text;
 	echo "<br />"; */
 
 
 
-	function send_mail_client($email, $login, $password, $DataTime){
+	function send_test_mail_client($email, $login, $password, $DataTime){
 		$text = file_get_contents("../raport/text_email_client.txt"); //$text = file_get_contents("$_home/$_work/text_email_client.txt");
 		$text = str_replace('__LOGIN__',$login,$text);
 		$text = str_replace('__PASSWORD__',$password,$text);
@@ -75,6 +79,23 @@
 		$mailSend->setHTML($text);
 		$mailSend->send(array($email),mail);
 	}
+
+    function send_mail_client($email, $login, $password, $DataTime){
+        $text = file_get_contents("../raport/text_email_client.txt"); //$text = file_get_contents("$_home/$_work/text_email_client.txt");
+        $text = str_replace('__LOGIN__',$login,$text);
+        $text = str_replace('__PASSWORD__',$password,$text);
+        $text = str_replace('__DATATIME__',$DataTime,$text);
+
+        $mailSend = new htmlMimeMail5();
+        $helo = "Kartina.TV";
+        $mailSend->setFrom('Kartina.TV <'.MAILUSER.'>');
+        $mailSend->setTextCharset('utf-8');
+        $mailSend->setHtmlCharset('utf-8');
+        $mailSend->setHeadCharset('utf-8');
+        $mailSend->setSubject('Видео-сервисКаrtina.TV');
+        $mailSend->setHTML($text);
+        $mailSend->send(array($email),mail);
+    }
 
 
 	/*
@@ -153,167 +174,182 @@
 	 */
 
 	if($_POST["add-login"]){
+        $is_add = true;
 		/*
 		 * Create new PHPExcel object
+		 * echo date('H:i:s') . " Create new PHPExcel object<br />";
 		 */
-		//echo date('H:i:s') . " Create new PHPExcel object<br />";
-		$objPHPExcel_2 = new PHPExcel();
+		$excel = new PHPExcel();
 		/*
 		 * Set properties
+		 * echo date('H:i:s') . " Set properties<br />";
 		 */
-		//echo date('H:i:s') . " Set properties<br />";
-		$objPHPExcel_2->getProperties()->setCreator("Runnable.com");
-		$objPHPExcel_2->getProperties()->setLastModifiedBy("Runnable.com");
-		$objPHPExcel_2->getProperties()->setTitle("Office 2007 XLSX Test Document");
-		$objPHPExcel_2->getProperties()->setSubject("Office 2007 XLSX Test Document");
-		$objPHPExcel_2->getProperties()->setDescription("Test document for Office 2007 XLSX, generated using PHP classes.");
+        $excel->getProperties()->setCreator("kartina-tv.mediaplayer.com.ua");
+        $excel->getProperties()->setLastModifiedBy("kartina-tv.mediaplayer.com.ua");
+        $excel->getProperties()->setTitle("Office 2007 XLSX Registration Document");
+        $excel->getProperties()->setSubject("Office 2007 XLSX Registration Document");
+        $excel->getProperties()->setDescription("Registration document for Office 2007 XLSX, generated using PHP classes.");
 		/*
 		 * Add some data
+		 * echo date('H:i:s') . " Add some data<br />";
 		 */
-		//echo date('H:i:s') . " Add some data<br />";
-		$objPHPExcel_2->setActiveSheetIndex(0);
-		$objPHPExcel_2->getActiveSheet()->SetCellValue('A1', '№');
-		$objPHPExcel_2->getActiveSheet()->SetCellValue('B1', 'логин');
-		$objPHPExcel_2->getActiveSheet()->SetCellValue('C1', 'пароль');
-		$objPHPExcel_2->getActiveSheet()->SetCellValue('D1', 'дата активации');
-		$objPHPExcel_2->getActiveSheet()->SetCellValue('E1', 'name');
-		$objPHPExcel_2->getActiveSheet()->SetCellValue('F1', 'email');
-		$objPHPExcel_2->getActiveSheet()->SetCellValue('G1', 'phone');
-		$objPHPExcel_2->getActiveSheet()->SetCellValue('H1', 'DataTime');
+        $excel->setActiveSheetIndex(0);
+        $excel->getActiveSheet()->SetCellValue('A1', '№');
+        $excel->getActiveSheet()->SetCellValue('B1', 'Логин');
+        $excel->getActiveSheet()->SetCellValue('C1', 'Пароль');
+        $excel->getActiveSheet()->SetCellValue('D1', 'Дата активации');
+        $excel->getActiveSheet()->SetCellValue('E1', 'Имя/Фамилия');
+        $excel->getActiveSheet()->SetCellValue('F1', 'E-mail');
+        $excel->getActiveSheet()->SetCellValue('G1', 'Телефон');
+        $excel->getActiveSheet()->SetCellValue('H1', 'DateTime');
 		for( $row = 1; $row <= (count($_KARTINA_TV)-1); $row++ ){
 			$_row = $row + 1;
-			$objPHPExcel_2->getActiveSheet()->SetCellValue("A$_row", $_KARTINA_TV[$row][0]);
-			$objPHPExcel_2->getActiveSheet()->SetCellValue("B$_row", $_KARTINA_TV[$row][1]);
-			$objPHPExcel_2->getActiveSheet()->SetCellValue("C$_row", $_KARTINA_TV[$row][2]);
-			$objPHPExcel_2->getActiveSheet()->SetCellValue("D$_row", $_KARTINA_TV[$row][3]);
-			$objPHPExcel_2->getActiveSheet()->SetCellValue("E$_row", $_KARTINA_TV[$row][4]);
-			$objPHPExcel_2->getActiveSheet()->SetCellValue("F$_row", $_KARTINA_TV[$row][5]);
-			$objPHPExcel_2->getActiveSheet()->SetCellValue("G$_row", $_KARTINA_TV[$row][6]);
-			$objPHPExcel_2->getActiveSheet()->SetCellValue("H$_row", $_KARTINA_TV[$row][7]);
+            $excel->getActiveSheet()->SetCellValue("A$_row", $_KARTINA_TV[$row][0]);
+            if($is_add && $_KARTINA_TV[$row][1] == null && $_KARTINA_TV[$row][2] == null){
+                send_mail_client($_KARTINA_TV[$row][5],$_add_login,$_add_password,$_add_activation);
+                $excel->getActiveSheet()->SetCellValue("B$_row", $_add_login);
+                $excel->getActiveSheet()->SetCellValue("C$_row", $_add_password);
+                $excel->getActiveSheet()->SetCellValue("D$_row", $_add_activation);
+                $excel->getActiveSheet()->SetCellValue("E$_row", $_KARTINA_TV[$row][4]);
+                $excel->getActiveSheet()->SetCellValue("F$_row", $_KARTINA_TV[$row][5]);
+                $excel->getActiveSheet()->SetCellValue("G$_row", $_KARTINA_TV[$row][6]);
+                $excel->getActiveSheet()->SetCellValue("H$_row", $_KARTINA_TV[$row][7]);
+                $is_add = false;
+            } else {
+                $excel->getActiveSheet()->SetCellValue("B$_row", $_KARTINA_TV[$row][1]);
+                $excel->getActiveSheet()->SetCellValue("C$_row", $_KARTINA_TV[$row][2]);
+                $excel->getActiveSheet()->SetCellValue("D$_row", $_KARTINA_TV[$row][3]);
+                $excel->getActiveSheet()->SetCellValue("E$_row", $_KARTINA_TV[$row][4]);
+                $excel->getActiveSheet()->SetCellValue("F$_row", $_KARTINA_TV[$row][5]);
+                $excel->getActiveSheet()->SetCellValue("G$_row", $_KARTINA_TV[$row][6]);
+                $excel->getActiveSheet()->SetCellValue("H$_row", $_KARTINA_TV[$row][7]);
+            }
 		}
-		$_row = $row + 1;
-		$objPHPExcel_2->getActiveSheet()->SetCellValue("A$_row", $row);
-		$objPHPExcel_2->getActiveSheet()->SetCellValue("B$_row", $_add_login);
-		$objPHPExcel_2->getActiveSheet()->SetCellValue("C$_row", $_add_password);
-		$objPHPExcel_2->getActiveSheet()->SetCellValue("D$_row", $_add_activation);
-		$objPHPExcel_2->getActiveSheet()->SetCellValue("E$_row", ''); //$objPHPExcel_2->getActiveSheet()->SetCellValue("E$_row", $_add_name);
-		$objPHPExcel_2->getActiveSheet()->SetCellValue("F$_row", ''); //$objPHPExcel_2->getActiveSheet()->SetCellValue("F$_row", $_add_email);
-		$objPHPExcel_2->getActiveSheet()->SetCellValue("G$_row", ''); //$objPHPExcel_2->getActiveSheet()->SetCellValue("G$_row", $_add_phone);
-		$objPHPExcel_2->getActiveSheet()->SetCellValue("H$_row", ''); //$objPHPExcel_2->getActiveSheet()->SetCellValue("H$_row", $_add_datatime);
-		$_row = $_row + 1;
-		$objPHPExcel_2->getActiveSheet()->SetCellValue("A$_row", '');
-		$objPHPExcel_2->getActiveSheet()->SetCellValue("B$_row", '');
-		$objPHPExcel_2->getActiveSheet()->SetCellValue("C$_row", '');
-		$objPHPExcel_2->getActiveSheet()->SetCellValue("D$_row", '');
-		$objPHPExcel_2->getActiveSheet()->SetCellValue("E$_row", '');
-		$objPHPExcel_2->getActiveSheet()->SetCellValue("F$_row", '');
-		$objPHPExcel_2->getActiveSheet()->SetCellValue("G$_row", '');
-		$objPHPExcel_2->getActiveSheet()->SetCellValue("H$_row", '');
+        if( $is_add ){
+            $_row = $row + 1;
+            $excel->getActiveSheet()->SetCellValue("A$_row", $row);
+            $excel->getActiveSheet()->SetCellValue("B$_row", $_add_login);
+            $excel->getActiveSheet()->SetCellValue("C$_row", $_add_password);
+            $excel->getActiveSheet()->SetCellValue("D$_row", $_add_activation);
+            $excel->getActiveSheet()->SetCellValue("E$_row", ''); // $_add_name
+            $excel->getActiveSheet()->SetCellValue("F$_row", ''); // $_add_email
+            $excel->getActiveSheet()->SetCellValue("G$_row", ''); // $_add_phone
+            $excel->getActiveSheet()->SetCellValue("H$_row", ''); // $_add_datatime
+            $_row = $_row + 1;
+            $excel->getActiveSheet()->SetCellValue("A$_row", '');
+            $excel->getActiveSheet()->SetCellValue("B$_row", '');
+            $excel->getActiveSheet()->SetCellValue("C$_row", '');
+            $excel->getActiveSheet()->SetCellValue("D$_row", '');
+            $excel->getActiveSheet()->SetCellValue("E$_row", '');
+            $excel->getActiveSheet()->SetCellValue("F$_row", '');
+            $excel->getActiveSheet()->SetCellValue("G$_row", '');
+            $excel->getActiveSheet()->SetCellValue("H$_row", '');
+        }
 		/*
-		 *  Rename sheet
+		 * Rename sheet
+		 * echo date('H:i:s') . " Rename sheet<br />";
 		 */
-		//echo date('H:i:s') . " Rename sheet<br />";
-		$objPHPExcel_2->getActiveSheet()->setTitle('Mailing');
+        $excel->getActiveSheet()->setTitle('Mailing');
 		/*
-		 *  Save Excel 2007 file
-		 *  These lines are commented just for this demo purposes This is how the excel file is written to the disk, but in this case we don't need them since the file was written at the first run
+		 * Save Excel 2007 file
+		 * These lines are commented just for this demo purposes This is how the excel file is written to the disk, but in this case we don't need them since the file was written at the first run
+		 * echo date('H:i:s') . " Write to Excel2007 format<br />";
 		 */
-		//echo date('H:i:s') . " Write to Excel2007 format<br />";
-		$objWriter = new PHPExcel_Writer_Excel2007($objPHPExcel_2); //$objWriter = new PHPExcel_Writer_Excel5($objPHPExcel_2);
-		$objWriter->save("$_home/$_work/$_xlsx_file_name.$_input_file_type");
+		$writer = new PHPExcel_Writer_Excel2007($excel); //$writer = new PHPExcel_Writer_Excel5($excel);
+        $writer->save("$_home/$_work/$_xlsx_file_name.$_input_file_type");
 		/*
-		 *  Echo done
+		 * Echo done
+		 * echo date('H:i:s') . " Done writing file. It can be downloaded by <a href='ftp://kartina-tv.mediaplayer.com.ua/public_html/raport/NewKartinaTV.xlsx'>clicking here</a>";
 		 */
-		//echo date('H:i:s') . " Done writing file. It can be downloaded by <a href='ftp://kartina-tv.mediaplayer.com.ua/public_html/raport/NewKartinaTV.xlsx'>clicking here</a>";
 	}
 
 	if($_POST["edit-id"]){
-		$objPHPExcel_2 = new PHPExcel();
+        $excel = new PHPExcel();
 		/*
-		 *  Set properties
+		 * Set properties
+		 * echo date('H:i:s') . " Set properties<br />";
 		 */
-		//echo date('H:i:s') . " Set properties<br />";
-		$objPHPExcel_2->getProperties()->setCreator("Runnable.com");
-		$objPHPExcel_2->getProperties()->setLastModifiedBy("Runnable.com");
-		$objPHPExcel_2->getProperties()->setTitle("Office 2007 XLSX Test Document");
-		$objPHPExcel_2->getProperties()->setSubject("Office 2007 XLSX Test Document");
-		$objPHPExcel_2->getProperties()->setDescription("Test document for Office 2007 XLSX, generated using PHP classes.");
+        $excel->getProperties()->setCreator("kartina-tv.mediaplayer.com.ua");
+        $excel->getProperties()->setLastModifiedBy("kartina-tv.mediaplayer.com.ua");
+        $excel->getProperties()->setTitle("Office 2007 XLSX Registration Document");
+        $excel->getProperties()->setSubject("Office 2007 XLSX Registration Document");
+        $excel->getProperties()->setDescription("Registration document for Office 2007 XLSX, generated using PHP classes.");
 		/*
 		 * Add some data
+		 * echo date('H:i:s') . " Add some data<br />";
 		 */
-		//echo date('H:i:s') . " Add some data<br />";
-		$objPHPExcel_2->setActiveSheetIndex(0);
-		$objPHPExcel_2->getActiveSheet()->SetCellValue('A1', '№');
-		$objPHPExcel_2->getActiveSheet()->SetCellValue('B1', 'логин');
-		$objPHPExcel_2->getActiveSheet()->SetCellValue('C1', 'пароль');
-		$objPHPExcel_2->getActiveSheet()->SetCellValue('D1', 'дата активации');
-		$objPHPExcel_2->getActiveSheet()->SetCellValue('E1', 'name');
-		$objPHPExcel_2->getActiveSheet()->SetCellValue('F1', 'email');
-		$objPHPExcel_2->getActiveSheet()->SetCellValue('G1', 'phone');
-		$objPHPExcel_2->getActiveSheet()->SetCellValue('H1', 'DataTime');
+        $excel->setActiveSheetIndex(0);
+        $excel->getActiveSheet()->SetCellValue('A1', '№');
+        $excel->getActiveSheet()->SetCellValue('B1', 'Логин');
+        $excel->getActiveSheet()->SetCellValue('C1', 'Пароль');
+        $excel->getActiveSheet()->SetCellValue('D1', 'Дата активации');
+        $excel->getActiveSheet()->SetCellValue('E1', 'Имя/Фамилия');
+        $excel->getActiveSheet()->SetCellValue('F1', 'E-mail');
+        $excel->getActiveSheet()->SetCellValue('G1', 'Телефон');
+        $excel->getActiveSheet()->SetCellValue('H1', 'DateTime');
 		for( $row = 1; $row <= (count($_KARTINA_TV)-1); $row++ ){
 			$_row = $row + 1;
-			$objPHPExcel_2->getActiveSheet()->SetCellValue("A$_row", $_KARTINA_TV[$row][0]);
+            $excel->getActiveSheet()->SetCellValue("A$_row", $_KARTINA_TV[$row][0]);
 			if($row == $_edit_id){
-				$objPHPExcel_2->getActiveSheet()->SetCellValue("B$_row", $_edit_login);
-				$objPHPExcel_2->getActiveSheet()->SetCellValue("C$_row", $_edit_password);
-				$objPHPExcel_2->getActiveSheet()->SetCellValue("D$_row", $_edit_activation);
-				$objPHPExcel_2->getActiveSheet()->SetCellValue("E$_row", $_edit_name);
-				$objPHPExcel_2->getActiveSheet()->SetCellValue("F$_row", $_edit_email);
-				$objPHPExcel_2->getActiveSheet()->SetCellValue("G$_row", $_edit_phone);
-				$objPHPExcel_2->getActiveSheet()->SetCellValue("H$_row", $_edit_datatime);
+                $excel->getActiveSheet()->SetCellValue("B$_row", $_edit_login);
+                $excel->getActiveSheet()->SetCellValue("C$_row", $_edit_password);
+                $excel->getActiveSheet()->SetCellValue("D$_row", $_edit_activation);
+                $excel->getActiveSheet()->SetCellValue("E$_row", $_edit_name);
+                $excel->getActiveSheet()->SetCellValue("F$_row", $_edit_email);
+                $excel->getActiveSheet()->SetCellValue("G$_row", $_edit_phone);
+                $excel->getActiveSheet()->SetCellValue("H$_row", $_edit_datatime);
 			} else {
-				$objPHPExcel_2->getActiveSheet()->SetCellValue("B$_row", $_KARTINA_TV[$row][1]);
-				$objPHPExcel_2->getActiveSheet()->SetCellValue("C$_row", $_KARTINA_TV[$row][2]);
-				$objPHPExcel_2->getActiveSheet()->SetCellValue("D$_row", $_KARTINA_TV[$row][3]);
-				$objPHPExcel_2->getActiveSheet()->SetCellValue("E$_row", $_KARTINA_TV[$row][4]);
-				$objPHPExcel_2->getActiveSheet()->SetCellValue("F$_row", $_KARTINA_TV[$row][5]);
-				$objPHPExcel_2->getActiveSheet()->SetCellValue("G$_row", $_KARTINA_TV[$row][6]);
-				$objPHPExcel_2->getActiveSheet()->SetCellValue("H$_row", $_KARTINA_TV[$row][7]);
+                $excel->getActiveSheet()->SetCellValue("B$_row", $_KARTINA_TV[$row][1]);
+                $excel->getActiveSheet()->SetCellValue("C$_row", $_KARTINA_TV[$row][2]);
+                $excel->getActiveSheet()->SetCellValue("D$_row", $_KARTINA_TV[$row][3]);
+                $excel->getActiveSheet()->SetCellValue("E$_row", $_KARTINA_TV[$row][4]);
+                $excel->getActiveSheet()->SetCellValue("F$_row", $_KARTINA_TV[$row][5]);
+                $excel->getActiveSheet()->SetCellValue("G$_row", $_KARTINA_TV[$row][6]);
+                $excel->getActiveSheet()->SetCellValue("H$_row", $_KARTINA_TV[$row][7]);
 			}
 		}
 		/*
 		 * Rename sheet
+		 * echo date('H:i:s') . " Rename sheet<br />";
 		 */
-		//echo date('H:i:s') . " Rename sheet<br />";
-		$objPHPExcel_2->getActiveSheet()->setTitle('Mailing');
+        $excel->getActiveSheet()->setTitle('Mailing');
 		/*
 		 * Save Excel 2007 file
 		 * These lines are commented just for this demo purposes This is how the excel file is written to the disk, but in this case we don't need them since the file was written at the first run
+		 * echo date('H:i:s') . " Write to Excel2007 format<br />";
 		 */
-		//echo date('H:i:s') . " Write to Excel2007 format<br />";
-		$objWriter = new PHPExcel_Writer_Excel2007($objPHPExcel_2); //$objWriter = new PHPExcel_Writer_Excel5($objPHPExcel_2);
-		$objWriter->save("$_home/$_work/$_xlsx_file_name.$_input_file_type");
+		$writer = new PHPExcel_Writer_Excel2007($excel); //$writer = new PHPExcel_Writer_Excel5($objPHPExcel_2);
+        $writer->save("$_home/$_work/$_xlsx_file_name.$_input_file_type");
 		/*
 		 * Echo done
+		 * echo date('H:i:s') . " Done writing file. It can be downloaded by <a href='ftp://kartina-tv.mediaplayer.com.ua/public_html/raport/NewKartinaTV.xlsx'>clicking here</a>";
 		 */
-		//echo date('H:i:s') . " Done writing file. It can be downloaded by <a href='ftp://kartina-tv.mediaplayer.com.ua/public_html/raport/NewKartinaTV.xlsx'>clicking here</a>";
 	}
 
 	if($_POST["delete-id"]){
-		$objPHPExcel_2 = new PHPExcel();
+        $excel = new PHPExcel();
 		/*
 		 * Set properties
+		 * echo date('H:i:s') . " Set properties<br />";
 		 */
-		//echo date('H:i:s') . " Set properties<br />";
-		$objPHPExcel_2->getProperties()->setCreator("Runnable.com");
-		$objPHPExcel_2->getProperties()->setLastModifiedBy("Runnable.com");
-		$objPHPExcel_2->getProperties()->setTitle("Office 2007 XLSX Test Document");
-		$objPHPExcel_2->getProperties()->setSubject("Office 2007 XLSX Test Document");
-		$objPHPExcel_2->getProperties()->setDescription("Test document for Office 2007 XLSX, generated using PHP classes.");
+        $excel->getProperties()->setCreator("kartina-tv.mediaplayer.com.ua");
+        $excel->getProperties()->setLastModifiedBy("kartina-tv.mediaplayer.com.ua");
+        $excel->getProperties()->setTitle("Office 2007 XLSX Registration Document");
+        $excel->getProperties()->setSubject("Office 2007 XLSX Registration Document");
+        $excel->getProperties()->setDescription("Registration document for Office 2007 XLSX, generated using PHP classes.");
 		/*
 		 * Add some data
+		 * echo date('H:i:s') . " Add some data<br />";
 		 */
-		//echo date('H:i:s') . " Add some data<br />";
-		$objPHPExcel_2->setActiveSheetIndex(0);
-		$objPHPExcel_2->getActiveSheet()->SetCellValue('A1', '№');
-		$objPHPExcel_2->getActiveSheet()->SetCellValue('B1', 'логин');
-		$objPHPExcel_2->getActiveSheet()->SetCellValue('C1', 'пароль');
-		$objPHPExcel_2->getActiveSheet()->SetCellValue('D1', 'дата активации');
-		$objPHPExcel_2->getActiveSheet()->SetCellValue('E1', 'name');
-		$objPHPExcel_2->getActiveSheet()->SetCellValue('F1', 'email');
-		$objPHPExcel_2->getActiveSheet()->SetCellValue('G1', 'phone');
-		$objPHPExcel_2->getActiveSheet()->SetCellValue('H1', 'DataTime');
+        $excel->setActiveSheetIndex(0);
+        $excel->getActiveSheet()->SetCellValue('A1', '№');
+        $excel->getActiveSheet()->SetCellValue('B1', 'Логин');
+        $excel->getActiveSheet()->SetCellValue('C1', 'Пароль');
+        $excel->getActiveSheet()->SetCellValue('D1', 'Дата активации');
+        $excel->getActiveSheet()->SetCellValue('E1', 'Имя/Фамилия');
+        $excel->getActiveSheet()->SetCellValue('F1', 'E-mail');
+        $excel->getActiveSheet()->SetCellValue('G1', 'Телефон');
+        $excel->getActiveSheet()->SetCellValue('H1', 'DateTime');
 		$is_del = true;
 		for( $row = 1; $row <= (count($_KARTINA_TV)-1); $row++ ){
 			if($row == $_delete_id) {
@@ -325,34 +361,40 @@
 			} else {
 				$_row = $row;
 			}
-			$objPHPExcel_2->getActiveSheet()->SetCellValue("A$_row", $_KARTINA_TV[$row][0]);
-			$objPHPExcel_2->getActiveSheet()->SetCellValue("B$_row", $_KARTINA_TV[$row][1]);
-			$objPHPExcel_2->getActiveSheet()->SetCellValue("C$_row", $_KARTINA_TV[$row][2]);
-			$objPHPExcel_2->getActiveSheet()->SetCellValue("D$_row", $_KARTINA_TV[$row][3]);
-			$objPHPExcel_2->getActiveSheet()->SetCellValue("E$_row", $_KARTINA_TV[$row][4]);
-			$objPHPExcel_2->getActiveSheet()->SetCellValue("F$_row", $_KARTINA_TV[$row][5]);
-			$objPHPExcel_2->getActiveSheet()->SetCellValue("G$_row", $_KARTINA_TV[$row][6]);
-			$objPHPExcel_2->getActiveSheet()->SetCellValue("H$_row", $_KARTINA_TV[$row][7]);
+            $excel->getActiveSheet()->SetCellValue("A$_row", $_KARTINA_TV[$row][0]);
+            $excel->getActiveSheet()->SetCellValue("B$_row", $_KARTINA_TV[$row][1]);
+            $excel->getActiveSheet()->SetCellValue("C$_row", $_KARTINA_TV[$row][2]);
+            $excel->getActiveSheet()->SetCellValue("D$_row", $_KARTINA_TV[$row][3]);
+            $excel->getActiveSheet()->SetCellValue("E$_row", $_KARTINA_TV[$row][4]);
+            $excel->getActiveSheet()->SetCellValue("F$_row", $_KARTINA_TV[$row][5]);
+            $excel->getActiveSheet()->SetCellValue("G$_row", $_KARTINA_TV[$row][6]);
+            $excel->getActiveSheet()->SetCellValue("H$_row", $_KARTINA_TV[$row][7]);
 		}
 		/*
 		 * Rename sheet
+		 * echo date('H:i:s') . " Rename sheet<br />";
 		 */
-		//echo date('H:i:s') . " Rename sheet<br />";
-		$objPHPExcel_2->getActiveSheet()->setTitle('Mailing');
+        $excel->getActiveSheet()->setTitle('Mailing');
 		/*
 		 * Save Excel 2007 file
 		 * These lines are commented just for this demo purposes This is how the excel file is written to the disk, but in this case we don't need them since the file was written at the first run
+		 * echo date('H:i:s') . " Write to Excel2007 format<br />";
 		 */
-		//echo date('H:i:s') . " Write to Excel2007 format<br />";
-		$objWriter = new PHPExcel_Writer_Excel2007($objPHPExcel_2); //$objWriter = new PHPExcel_Writer_Excel5($objPHPExcel_2);
-		$objWriter->save("$_home/$_work/$_xlsx_file_name.$_input_file_type");
+		$writer = new PHPExcel_Writer_Excel2007($excel); //$writer = new PHPExcel_Writer_Excel5($objPHPExcel_2);
+        $writer->save("$_home/$_work/$_xlsx_file_name.$_input_file_type");
 
-		// Echo done
-		//echo date('H:i:s') . " Done writing file. It can be downloaded by <a href='ftp://kartina-tv.mediaplayer.com.ua/public_html/raport/NewKartinaTV.xlsx'>clicking here</a>";
+        /*
+         * Echo done
+         * echo date('H:i:s') . " Done writing file. It can be downloaded by <a href='ftp://kartina-tv.mediaplayer.com.ua/public_html/raport/NewKartinaTV.xlsx'>clicking here</a>";
+         */
 	}
 
 	if($_POST["receiver-email"]){
 		$available_new_record = null;
+        $_search_name         = 0; foreach($_KARTINA_TV as $col=>$val) if($val[4] == $_receiver_name) $_search_name++;
+        $_search_email        = 0; foreach($_KARTINA_TV as $col=>$val) if($val[5] == $_receiver_email) $_search_email++;
+        $_search_phone        = 0; foreach($_KARTINA_TV as $col=>$val) if($val[6] == $_receiver_phone) $_search_phone++;
+        $_search              = $_search_name + $_search_email + $_search_phone;
 		foreach( $_KARTINA_TV as $col=>$val ){
 			if(!$val['status']){
 				$available_new_record = $val;
@@ -361,16 +403,18 @@
 		}
 
 		if(filter_var($available_new_record[0], FILTER_VALIDATE_INT) !== false){
-			send_mail_client($_receiver_email,$available_new_record[1],$available_new_record[2],$available_new_record[3]);
+            if(0 == $_search){
+                send_test_mail_client($_receiver_email,$available_new_record[1],$available_new_record[2],$available_new_record[3]);
+            }
 		//} else {
 		//	fail_mail_client($_receiver_email);
 		}
 	}
 
 	if($_POST["edit-email-text"]){
-			$fs   = fopen("$_home/$_work/text_email_client.txt","w");
-			$text = fputs($fs,$_edit_email_text);
-			fclose($fs);
+        $fs   = fopen("$_home/$_work/text_email_client.txt","w");
+        $text = fputs($fs,$_edit_email_text);
+        fclose($fs);
 	}
 
 ?>

@@ -78,7 +78,7 @@
 												<td rowspan="2" style="border-left: #aaa solid 1px;">
 													<table width="230" border="0">
 														<tr><td><p>админы:</p></td><td><?php foreach ($mail as &$item) echo "<a href='mailto:$item' target='_blank'>$item</a><br />"; ?></td></tr>
-														<tr><td colspan="2" align="center"><input type="button" onclick="modalWindow.show_test(300);" value="Протестировать" /></td></tr>
+														<tr><td colspan="2" align="center"><input type="button" onclick="modalWindow.show_test(350);" value="Протестировать" /></td></tr>
 													</table>
 												</td>
 											</tr>
@@ -109,6 +109,7 @@
 												<th><?php print($_KARTINA_TV[0][6]); ?></th>
 												<th><?php print($_KARTINA_TV[0][7]); ?></th>
 											</tr>
+                                            <tr><td colspan="10"><hr size="1" width="99%" color="#aaa"></td></tr>
 											<?php for( $row = 1; $row <= (count($_KARTINA_TV)-1); $row++ ){ ?>
 											<tr class="data-out" style="background: <?php print($_KARTINA_TV[$row]['status']); ?>;">
 												<td><?php print($_KARTINA_TV[$row][0]); ?></td>
@@ -116,7 +117,7 @@
 												<td><i><font color="blue"><?php print($_KARTINA_TV[$row][2]); ?></font></i></td>
 												<td><i><font color="blue"><?php print($_KARTINA_TV[$row][3]); ?></font></i></td>
 												<td><i><font color="blue"><?php print($_KARTINA_TV[$row][4]); ?></font></i></td>
-												<td><?php if($_KARTINA_TV[$row][5]){ ?><nobr><i><a href="mailto:<?php print($_KARTINA_TV[$row][5]); ?>" title="Ответить на почту"><img src="/images/email.png" alt="email" /><?php print($_KARTINA_TV[$row][5]); ?></a></i></nobr><?php } ?></td>
+												<td><?php if($_KARTINA_TV[$row][5]){ ?><nobr><i><a href="mailto:<?php print($_KARTINA_TV[$row][5]); ?>" title="Ответить на почту"><img src="/images/green-favicon.ico" alt="email" /><?php print($_KARTINA_TV[$row][5]); ?></a></i></nobr><?php } ?></td>
 												<td><?php if($_KARTINA_TV[$row][6]){ ?><nobr><i><font color="blue"><a href="skype:<?php print($_KARTINA_TV[$row][6]); ?>?call" title="Позвонить через Skype на номер"><img class="rank-icon" alt="" src="http://skypec.i.lithium.com/html/rank_icons/icon_role_skype.png"><?php print($_KARTINA_TV[$row][6]); ?></a></font></i></nobr><?php } ?></td>
 												<td><i><font color="blue"><?php print($_KARTINA_TV[$row][7]); ?></font></i></td>
 												<td style="background: #FFFFFF;"><a class="edit-delete" href="javascript:;" onclick="modalWindow.show_edit(350, '<?php print($_KARTINA_TV[$row][0]); ?>', '<?php print($_KARTINA_TV[$row][1]); ?>', '<?php print($_KARTINA_TV[$row][2]); ?>', '<?php print($_KARTINA_TV[$row][3]); ?>', '<?php print($_KARTINA_TV[$row][4]); ?>', '<?php print($_KARTINA_TV[$row][5]); ?>', '<?php print($_KARTINA_TV[$row][6]); ?>', '<?php print($_KARTINA_TV[$row][7]); ?>');" title="Редактировать"><img src="/images/edit.png" alt="edit" /></a></td>
@@ -145,10 +146,12 @@
 				</table>
 				<script type="text/javascript">
 					<!--
-					<?php if($_POST["receiver-email"]){ if(filter_var($available_new_record[0], FILTER_VALIDATE_INT) !== false){ ?>
-							document.getElementById('result').innerHTML = '<font color="darkgreen">Найдена доступная запись <u>№<?php print( $available_new_record[0] ); ?></u> для рассылки на почту клиентам. Дата активации истекает <u><?php print( $available_new_record[3] ); ?></u></font>';
-					<?php }else{ ?>
-							document.getElementById('result').innerHTML = '<font color="red">Ненайдено доступных записей</font>';
+					<?php if($_POST["receiver-email"]){ if(filter_var($available_new_record[0], FILTER_VALIDATE_INT) !== false){ if(0 < $_search){ ?>
+                        document.getElementById('result').innerHTML = '<font color="red">Найдена доступная запись <u>№<?php print( $available_new_record[0] ); ?></u> для рассылки на почту клиентам. Заказчик: <u><?php print( $_receiver_name ); ?></u> - мошейник!!!</font>';<?php
+                    }else{ ?>
+                        document.getElementById('result').innerHTML = '<font color="darkgreen">Найдена доступная запись <u>№<?php print( $available_new_record[0] ); ?></u> для рассылки на почту клиентам. Заказчик: <u><?php print( $_receiver_name ); ?></u></font>';
+					<?php }}else{ ?>
+                        document.getElementById('result').innerHTML = '<font color="red">Ненайдено доступных записей</font>';
 					<?php }} ?>
 					
 					/*
@@ -203,7 +206,7 @@
 						},
 
 						show_edit: function(width, id, login, password, activation, name, email, phone, datatime) {
-							html = '<form method="POST" action="<?php $_PHP_SELF ?>"> <table border="0" width="100%"> <tr><td width="40%"></td><td width="60%"></td></tr> <tr><th colspan="2">№ '+id+'<input type="hidden" name="edit-id" value="'+id+'"></th></tr> <tr><td align="right">Логин:</td><td><input name="edit-login" placeholder="Логин" autofocus="" value="'+login+'" type="text" /></td></tr> <tr><td align="right">Пароль:</td><td><input name="edit-password" placeholder="Пароль" value="'+password+'" type="password" /></td></tr> <tr><td align="right">Дата активации:</td><td><input name="edit-activation" placeholder="dd.mm.yyyy" value="'+activation+'" type="text" /></td></tr> <tr><td align="right">Имя/Фамилия:</td><td><input name="edit-name" placeholder="Имя/Фамилия" value="'+name+'" type="text" /></td></tr> <tr><td align="right">E-mail:</td><td><input name="edit-email" placeholder="email@example.com" value="'+email+'" type="text" /></td></tr> <tr><td align="right">Телефон <label id="descr" style="color: #525252; float: none; margin: 0;"></label>:</td><td> <input placeholder="+_(___)___-____" maxlength="30" name="edit-phone" id="edit-phone" value="+_(___)___-____" size="25" type="text"></td></tr> <tr><td align="right">DateTime:</td><td><input name="edit-datatime" placeholder="dd.mm.yyyy" value="'+datatime+'" type="text" /></td></tr> <tr><td colspan="2" align="center" style="border-top: 1px solid #ddd; background: #f6f6f6;"><br /><input type="submit" value="Сохранить" /> <input value="Отмена" onclick="modalWindow.close();" type="button" /><br />&nbsp;</td></tr> </table> </form>';
+							html = '<form method="POST" action="<?php $_PHP_SELF ?>"> <table border="0" width="100%"> <tr><td width="40%"></td><td width="60%"></td></tr> <tr><th colspan="2">№ '+id+'<input type="hidden" name="edit-id" value="'+id+'"></th></tr> <tr><td align="right">Логин:</td><td><input name="edit-login" placeholder="Логин" autofocus="" value="'+login+'" type="text" /></td></tr> <tr><td align="right">Пароль:</td><td><input name="edit-password" placeholder="Пароль" value="'+password+'" type="password" /></td></tr> <tr><td align="right">Дата активации:</td><td><input name="edit-activation" placeholder="dd.mm.yyyy" value="'+activation+'" type="text" /></td></tr> <tr><td align="right">Имя/Фамилия:</td><td><input name="edit-name" placeholder="Имя/Фамилия" value="'+name+'" type="text" /></td></tr> <tr><td align="right">E-mail:</td><td><input name="edit-email" placeholder="email@example.com" value="'+email+'" type="text" /></td></tr> <tr><td align="right">Телефон <label id="descr" style="color: #525252; float: none; margin: 0;"></label>:</td><td> <input placeholder="+_(___)___-____" maxlength="30" name="edit-phone" id="edit-phone" value="'+phone+'" size="25" type="text"></td></tr> <tr><td align="right">DateTime:</td><td><input name="edit-datatime" placeholder="dd.mm.yyyy" value="'+datatime+'" type="text" /></td></tr> <tr><td colspan="2" align="center" style="border-top: 1px solid #ddd; background: #f6f6f6;"><br /><input type="submit" value="Сохранить" /> <input value="Отмена" onclick="modalWindow.close();" type="button" /><br />&nbsp;</td></tr> </table> </form>';
 							modalWindow.initBlock();
 							modalWindow.initWin(width, html);
 							// URL: https://jqueryui.com/datepicker/
@@ -278,9 +281,39 @@
 						},
 						
 						show_test: function(width) {
-							html = '<form method="POST" action="<?php $_PHP_SELF ?>"> <table border="0" width="100%"> <tr><td align="right">email-получателя:</td><td><input name="receiver-email" placeholder="email@example.com" autofocus="" value="" type="text" /></td></tr> <tr><td colspan="2" align="center" style="border-top: 1px solid #ddd; background: #f6f6f6;"><br /><input type="submit" value="Выполнить" /> <input value="Отмена" onclick="modalWindow.close();" type="button" /><br />&nbsp;</td></tr> </table> </form>';
+							html = '<form method="POST" action="<?php $_PHP_SELF ?>"> <table border="0" width="100%"> <tr><td width="40%"></td><td width="60%"></td></tr> <tr><td align="right">Имя/Фамилия:</td><td><input name="receiver-name" placeholder="Имя/Фамилия" value="" type="text" /></td></tr> <tr><td align="right">E-mail:</td><td><input name="receiver-email" placeholder="email@example.com" value="" type="text" /></td></tr> <tr><td align="right">Телефон <label id="descr" style="color: #525252; float: none; margin: 0;"></label>:</td><td> <input placeholder="+_(___)___-____" maxlength="30" name="receiver-phone" id="receiver-phone" value="+_(___)___-____" size="25" type="text"></td></tr> <tr><td colspan="2" align="center" style="border-top: 1px solid #ddd; background: #f6f6f6;"><br /><input type="submit" value="Выполнить" /> <input value="Отмена" onclick="modalWindow.close();" type="button" /><br />&nbsp;</td></tr> </table> </form>';
 							modalWindow.initBlock();
 							modalWindow.initWin(width, html);
+                            var maskList = $.masksSort($.masksLoad("phone-codes.json"), ['#'], /[0-9]|#/, "mask");
+                            var maskOpts = {
+                                inputmask: {
+                                    definitions: {
+                                        '#': {
+                                            validator: "[0-9]",
+                                            cardinality: 1
+                                        }
+                                    },
+                                    showMaskOnHover: false,
+                                    autoUnmask: true
+                                },
+                                match: /[0-9]/,
+                                replace: '#',
+                                list: maskList,
+                                listKey: "mask",
+                                onMaskChange: function(maskObj, determined) {
+                                    if (determined) {
+                                        var hint = maskObj.name_ru;
+                                        if (maskObj.desc_ru && maskObj.desc_ru != "") {
+                                            hint += " (" + maskObj.desc_ru + ")";
+                                        }
+                                        $("#descr").html("(" + hint + ")");
+                                    } else {
+                                        $("#descr").html("");
+                                    }
+                                    $(this).attr("placeholder", $(this).inputmask("getemptymask"));
+                                }
+                            };
+                            $('#receiver-phone').inputmasks(maskOpts);
 						}
 					}
 					//-->
